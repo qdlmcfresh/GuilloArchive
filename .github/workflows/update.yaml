@@ -1,0 +1,16 @@
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '*/30 * * * *'
+
+  update:
+    name: Hello world
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check-out devops repository
+      uses: actions/checkout@v2
+    - name: Run script
+      run: |
+        pip3 install -f requirements.txt
+        python3 ./twitter_archive_bot.py -i 1283821290294587393 -d GuillotineTea.db -b ${{secrets.TWITTER_BEARER_TOKEN}} 
+
