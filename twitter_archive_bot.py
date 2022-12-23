@@ -110,7 +110,7 @@ class TwitterArchiveBot:
         with open('template.html') as f:
             html_template = Template(f.read())
         posts = []
-        tweets = self.db_cursor.execute("SELECT * FROM tweets").fetchall()
+        tweets = self.db_cursor.execute("SELECT * FROM tweets ORDER BY tweet_id DESC").fetchall()
         # convert the database to html
         for tweet in tweets:
             media_html = ""
