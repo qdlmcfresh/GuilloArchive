@@ -94,8 +94,12 @@ class TwitterArchiveBot:
                 break
             print(f"Saving {len(results)} tweets")
             media_dict = {}
-            for media in results.includes['media']:
-                media_dict[media.media_key] = media
+            print(results)
+            try:
+                for media in results.includes['media']:
+                    media_dict[media.media_key] = media
+            except KeyError:
+                print("No media")
             for tweet in results.data:
                 self.save_tweet(tweet, media_dict)
 
