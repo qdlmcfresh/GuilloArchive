@@ -7,6 +7,7 @@ import os
 import sqlite3
 import urllib.request
 import argparse
+import re
 from string import Template
 
 
@@ -130,6 +131,8 @@ class TwitterArchiveBot:
                     media_html += f"<video src='{self.media_path}/{key}.mp4' alt='video' controls></video><br>"
                 elif media_type == "animated_gif":
                     media_html += f"<img src='{self.media_path}/{key}.gif' alt='gif'><br>"
+            # Remove image links from the text
+            tweet[1] = re.sub(r'https://t.co/\w+', '', tweet[1])
             posts.append(post_template.substitute(
                 TEMPLATE_POST_TEXT=tweet[1], TEMPLATE_POST_MEDIA=media_html))
         with open("index.html", "w", encoding='utf-8') as f:
