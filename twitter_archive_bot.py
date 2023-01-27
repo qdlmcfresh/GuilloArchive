@@ -132,9 +132,9 @@ class TwitterArchiveBot:
                 elif media_type == "animated_gif":
                     media_html += f"<img src='{self.media_path}/{key}.gif' alt='gif'><br>"
             # Remove image links from the text
-            tweet[1] = re.sub(r'https://t.co/\w+', '', tweet[1])
+            text_no_links = re.sub(r'https://t.co/\w+', '', tweet[1])
             posts.append(post_template.substitute(
-                TEMPLATE_POST_TEXT=tweet[1], TEMPLATE_POST_MEDIA=media_html))
+                TEMPLATE_POST_TEXT=text_no_links, TEMPLATE_POST_MEDIA=media_html))
         with open("index.html", "w", encoding='utf-8') as f:
             f.write(html_template.substitute(TEMPLATE_POSTS=''.join(posts)))
 
